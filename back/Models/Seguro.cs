@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
 namespace back.Models
@@ -10,6 +11,30 @@ namespace back.Models
         public DateTime VigenciaLimite { get; set; }
         public DateTime DtContratacao { get; set; }
         public AbrangenciaEnum Abrangencia { get; set; }
+
+        public void Create(Seguro seguro)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Seguro Read(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(int Id, Seguro seguro)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int Id)
+        {
+            throw new NotImplementedException();
+        }
+        public List<Seguro> GetList()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public enum AbrangenciaEnum
