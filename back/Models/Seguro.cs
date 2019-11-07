@@ -7,14 +7,20 @@ namespace back.Models
 {
     public class Seguro
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public string Nome { get; set; }
-        public DateTime VigenciaLimite { get; set; }
-        public DateTime DtContratacao { get; set; }
+        public DateTime VigenciaLimite { get; private set; }
+        public DateTime DtContratacao { get; private set; }
         public AbrangenciaEnum Abrangencia { get; set; }
 
         public static void Create(Seguro seguro)
         {
+            if (seguro.Nome == null)
+                throw new ArgumentNullException("Nome", "Necessario que o Nome do seguro seja informado");
+
+            seguro.DtContratacao = DateTime.Now;
+            seguro.VigenciaLimite = DateTime.Now.AddMonths(12);
+
             using (var db = new SeguroDbContext())
             {
                 db.Add(seguro);
@@ -30,6 +36,9 @@ namespace back.Models
                                 .Where(i => i.Id == Id)
                                 .FirstOrDefault();
 
+                if (retorno == null)
+                    throw new KeyNotFoundException($"O objeto de id:{Id}, não foi encontrado na coleção");
+
                 return retorno;
             }
         }
@@ -42,15 +51,15 @@ namespace back.Models
                                 .Where(i => i.Id == Id)
                                 .FirstOrDefault();
 
-                if (retorno != null)
-                {
-                    retorno.Nome = seguro.Nome;
-                    retorno.Abrangencia = seguro.Abrangencia;
-                    retorno.DtContratacao = seguro.DtContratacao;
-                    retorno.VigenciaLimite = seguro.VigenciaLimite;
+                if (retorno == null)
+                    throw new KeyNotFoundException($"O objeto de id:{Id}, não foi encontrado na coleção");
 
-                    db.SaveChanges();
-                }
+                retorno.Nome = seguro.Nome;
+                retorno.Abrangencia = seguro.Abrangencia;
+                retorno.DtContratacao = seguro.DtContratacao;
+                retorno.VigenciaLimite = seguro.VigenciaLimite;
+
+                db.SaveChanges();
             }
         }
 
@@ -61,12 +70,12 @@ namespace back.Models
                 var retorno = db.Seguros
                                 .Where(i => i.Id == Id)
                                 .FirstOrDefault();
-                if (retorno != null)
-                {
-                    db.Seguros.Remove(retorno);
-                    db.SaveChanges();
-                }
 
+                if (retorno == null)
+                    throw new KeyNotFoundException($"O objeto de id:{Id}, não foi encontrado na coleção");
+
+                db.Seguros.Remove(retorno);
+                db.SaveChanges();
             }
         }
         public static List<Seguro> GetList()
