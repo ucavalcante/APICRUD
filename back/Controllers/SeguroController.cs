@@ -12,44 +12,26 @@ namespace back.Controllers
         [HttpGet]
         public IEnumerable<Seguro> Get()
         {
-            List<Seguro> mockup = new List<Seguro> {
-                new Seguro {
-                     Id = 1,
-                    Nome = "Veiculo Passeio Nacional",
-                    Abrangencia = AbrangenciaEnum.Nacional,
-                    DtContratacao = DateTime.Now,
-                    VigenciaLimite = DateTime.Now.AddMonths(12)
-                },
-                new Seguro {
-                    Id = 2,
-                    Nome = "Motorista de Aplicativo Estadual",
-                    Abrangencia = AbrangenciaEnum.Estadual,
-                    DtContratacao = DateTime.Now,
-                    VigenciaLimite = DateTime.Now.AddMonths(6)
-                }
-            };
-
-
-            return mockup;
+            return Seguro.GetList();
         }
         [HttpPost]
         public IActionResult Post(Seguro seguro)
         {
-
+            Seguro.Create(seguro);
             return Accepted();
         }
         [HttpDelete]
         [Route("{id}")]
         public IActionResult Delete(int id)
         {
-            Console.WriteLine("Teste");
-            return Ok();
+            Seguro.Delete(id);
+            return Accepted();
         }
         [HttpPut]
         [Route("{id}")]
         public IActionResult Put(int id ,Seguro seguro)
         {
-
+            Seguro.Update(id, seguro);
             return Accepted();
         }
 

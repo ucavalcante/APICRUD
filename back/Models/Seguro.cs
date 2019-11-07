@@ -12,26 +12,26 @@ namespace back.Models
         public DateTime DtContratacao { get; set; }
         public AbrangenciaEnum Abrangencia { get; set; }
 
-        public void Create(Seguro seguro)
+        public static void Create(Seguro seguro)
         {
             throw new NotImplementedException();
         }
 
-        public Seguro Read(int Id)
+        public static Seguro Read(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(int Id, Seguro seguro)
+        public static void Update(int Id, Seguro seguro)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(int Id)
+        public static void Delete(int Id)
         {
             throw new NotImplementedException();
         }
-        public List<Seguro> GetList()
+        public static List<Seguro> GetList()
         {
             throw new NotImplementedException();
         }
