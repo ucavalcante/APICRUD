@@ -9,7 +9,7 @@ using back.Models;
 
 namespace back.Migrations
 {
-    [DbContext(typeof(SeguroContext))]
+    [DbContext(typeof(SeguroDbContext))]
     [Migration("20191107024558_InitialCreate")]
     partial class InitialCreate
     {

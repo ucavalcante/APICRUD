@@ -8,7 +8,7 @@ using back.Models;
 
 namespace back.Migrations
 {
-    [DbContext(typeof(SeguroContext))]
+    [DbContext(typeof(SeguroDbContext))]
     partial class SeguroContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
