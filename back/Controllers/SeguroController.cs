@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace back.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
     public class SeguroController : ControllerBase
     {
         [HttpGet]
@@ -20,7 +20,7 @@ namespace back.Controllers
                     DtContratacao = DateTime.Now,
                     VigenciaLimite = DateTime.Now.AddMonths(12)
                 },
-                new Seguro { 
+                new Seguro {
                     Id = 2,
                     Nome = "Motorista de Aplicativo Estadual",
                     Abrangencia = AbrangenciaEnum.Estadual,
@@ -36,7 +36,22 @@ namespace back.Controllers
         public IActionResult Post(Seguro seguro)
         {
 
-            return null;
+            return Accepted();
         }
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete(int id)
+        {
+            Console.WriteLine("Teste");
+            return Ok();
+        }
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult Put(int id ,Seguro seguro)
+        {
+
+            return Accepted();
+        }
+
     }
 }
