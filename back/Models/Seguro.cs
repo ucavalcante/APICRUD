@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 namespace back.Models
@@ -14,26 +15,66 @@ namespace back.Models
 
         public static void Create(Seguro seguro)
         {
-            throw new NotImplementedException();
+            using (var db = new SeguroDbContext())
+            {
+                db.Add(seguro);
+                db.SaveChanges();
+            }
         }
 
         public static Seguro Read(int Id)
         {
-            throw new NotImplementedException();
+            using (var db = new SeguroDbContext())
+            {
+                var retorno = db.Seguros
+                                .Where(i => i.Id == Id)
+                                .FirstOrDefault();
+
+                return retorno;
+            }
         }
 
         public static void Update(int Id, Seguro seguro)
         {
-            throw new NotImplementedException();
+            using (var db = new SeguroDbContext())
+            {
+                var retorno = db.Seguros
+                                .Where(i => i.Id == Id)
+                                .FirstOrDefault();
+
+                if (retorno != null)
+                {
+                    retorno.Nome = seguro.Nome;
+                    retorno.Abrangencia = seguro.Abrangencia;
+                    retorno.DtContratacao = seguro.DtContratacao;
+                    retorno.VigenciaLimite = seguro.VigenciaLimite;
+
+                    db.SaveChanges();
+                }
+            }
         }
 
         public static void Delete(int Id)
         {
-            throw new NotImplementedException();
+            using (var db = new SeguroDbContext())
+            {
+                var retorno = db.Seguros
+                                .Where(i => i.Id == Id)
+                                .FirstOrDefault();
+                if (retorno != null)
+                {
+                    db.Seguros.Remove(retorno);
+                    db.SaveChanges();
+                }
+
+            }
         }
         public static List<Seguro> GetList()
         {
-            throw new NotImplementedException();
+            using (var db = new SeguroDbContext())
+            {
+                return db.Seguros.ToList();
+            }
         }
     }
 
@@ -43,7 +84,7 @@ namespace back.Models
         Internacional,
         Estadual
     }
-    public class SeguroContext : DbContext
+    public class SeguroDbContext : DbContext
     {
         public DbSet<Seguro> Seguros { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)

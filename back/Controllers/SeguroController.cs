@@ -14,6 +14,12 @@ namespace back.Controllers
         {
             return Seguro.GetList();
         }
+        [HttpGet]
+        [Route("{id}")]
+        public Seguro Get(int id)
+        {
+            return Seguro.Read(id);
+        }
         [HttpPost]
         public IActionResult Post(Seguro seguro)
         {
@@ -29,7 +35,7 @@ namespace back.Controllers
         }
         [HttpPut]
         [Route("{id}")]
-        public IActionResult Put(int id ,Seguro seguro)
+        public IActionResult Put(int id, Seguro seguro)
         {
             Seguro.Update(id, seguro);
             return Accepted();
