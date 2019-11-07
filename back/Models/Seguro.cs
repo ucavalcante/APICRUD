@@ -1,4 +1,5 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace back.Models
 {
@@ -16,5 +17,11 @@ namespace back.Models
         Nacional,
         Internacional,
         Estadual
+    }
+    public class SeguroContext : DbContext
+    {
+        public DbSet<Seguro> Seguros { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+                    => options.UseSqlServer("Server=localhost;Database=teste;User Id=SA;Password=Teste@123");
     }
 }
