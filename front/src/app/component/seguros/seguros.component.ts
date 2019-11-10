@@ -1,3 +1,4 @@
+import { SeguroService } from './../../servicos/seguro.service';
 import { Abrangencia } from './../../enumeradores/abrangencia.enum';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,13 +10,14 @@ import { Component, OnInit } from '@angular/core';
 export class SegurosComponent implements OnInit {
   keys;
   abrangenciaList = Abrangencia;
+  segurosList;
 
-  constructor() {
+  constructor( private segservice: SeguroService ) {
     this.keys = Object.keys(this.abrangenciaList).filter(f => !isNaN(Number(f)));
-    console.log(this.keys);
    }
 
   ngOnInit() {
+    this.segurosList = this.segservice.getAllSeguros();
   }
 
 }
