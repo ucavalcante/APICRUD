@@ -1,0 +1,10 @@
+<h1>Seguros</h1>
+
+<label>Nome</label>
+<input class="form-control" type="text">
+
+<Label>Abrangencia</Label>
+<select class="custom-select" name="abrangecia-selector" id="abrangecia-selector">
+  <option label="Selecionar" disabled ></option>
+  <option *ngFor="let key of keys" [value]="key" [label]="abrangenciaList[key]"></option>
+</select>
