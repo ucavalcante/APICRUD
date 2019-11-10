@@ -1,3 +1,4 @@
+import { ISeguro } from './../../interface/iseguro';
 import { SeguroService } from './../../servicos/seguro.service';
 import { Abrangencia } from './../../enumeradores/abrangencia.enum';
 import { Component, OnInit } from '@angular/core';
@@ -10,14 +11,38 @@ import { Component, OnInit } from '@angular/core';
 export class SegurosComponent implements OnInit {
   keys;
   abrangenciaList = Abrangencia;
-  segurosList;
+  segurosList: ISeguro[];
+  modoEdicao = false;
 
-  constructor( private segservice: SeguroService ) {
+  constructor(private segservice: SeguroService) {
     this.keys = Object.keys(this.abrangenciaList).filter(f => !isNaN(Number(f)));
-   }
-
-  ngOnInit() {
-    this.segurosList = this.segservice.getAllSeguros();
   }
 
+  ngOnInit() {
+    this.GetAllSeguros();
+  }
+
+  private GetAllSeguros() {
+    this.segservice.getAllSeguros()
+      .subscribe(
+        s => {
+          this.segurosList = s;
+          console.log(s);
+        }
+      );
+  }
+
+  addSeguro(item: ISeguro) {
+    if (typeof item.nome !== 'undefined' && item.nome) {
+      this.segservice.addSeguro(item).subscribe(
+        () => this.segurosList.push(item),
+        error => console.log('Error: ', error),
+        () => this.GetAllSeguros()
+      );
+    }
+  }
+
+  deleteSeguro(item: ISeguro) {
+
+  }
 }
