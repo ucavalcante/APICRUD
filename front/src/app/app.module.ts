@@ -7,6 +7,9 @@ import { SegurosComponent } from './component/seguros/seguros.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DateToLocalDateStringPipe } from './pipe/date-to-local-date-string.pipe';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +19,9 @@ import { DateToLocalDateStringPipe } from './pipe/date-to-local-date-string.pipe
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
