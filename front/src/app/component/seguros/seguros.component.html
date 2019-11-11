@@ -1,6 +1,7 @@
 <h1>Seguros</h1>
 <div class="row mb-3">
 
+  <input #tempId type="hidden">
   <div class="col-md-6 col-sm-6">
     <label>Nome</label>
     <input class="form-control" #tempNome type="text">
@@ -19,7 +20,8 @@
       <div class="col-3">
         <button *ngIf="!modoEdicao" class="btn btn-primary"
           (click)="addSeguro({nome:tempNome.value,abrangencia:tempAbrangencia.value});tempNome.value='';tempAbrangencia.value=''">Adicionar</button>
-        <button *ngIf="modoEdicao" class="btn btn-primary">Salvar</button>
+        <button *ngIf="modoEdicao" class="btn btn-primary"
+        (click)="updateSeguro({id:tempId.value,nome:tempNome.value,abrangencia:tempAbrangencia.value})" >Salvar</button>
       </div>
     </div>
   </div>
@@ -38,7 +40,11 @@
 
       <div class="d-flex justify-content-end mt-3">
         <button class="btn btn-primary ml-2"
-          (click)="modoEdicao=!modoEdicao;modoEdicao?dtNome.value=item.nome:dtNome.value='';modoEdicao?dtCargo.value=item.cargo:dtCargo.value='';modoEdicao?dtId.value=item.id:dtId.value=''"
+          (click)="modoEdicao=!modoEdicao;
+          modoEdicao?tempNome.value=item.nome:tempNome.value='';
+          modoEdicao?tempAbrangencia.value=item.abrangencia:tempAbrangencia.value='';
+          modoEdicao?tempId.value=item.id:tempId.value='';
+          "
           style="font-family: 'Segoe MDL2 Assets'" alt='Delete'>&#xE104;</button>
         <button class="btn btn-primary ml-2" (click)="deleteSeguro(item)" style="font-family: 'Segoe MDL2 Assets'"
           alt='Delete'>&#xE107;</button>

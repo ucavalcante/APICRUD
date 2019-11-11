@@ -27,7 +27,6 @@ export class SegurosComponent implements OnInit {
       .subscribe(
         s => {
           this.segurosList = s;
-          console.log(s);
         }
       );
   }
@@ -43,6 +42,25 @@ export class SegurosComponent implements OnInit {
   }
 
   deleteSeguro(item: ISeguro) {
-
+    this.segservice.deleteSeguro(item).subscribe(
+      () => this.segurosList = this.segurosList.filter(obj => obj !== item),
+      error => console.log('Error: ', error),
+      () => this.GetAllSeguros()
+    );
+  }
+  updateSeguro(item: ISeguro) {
+    if (typeof item.nome !== 'undefined' && item.nome) {
+      const x = this.segurosList.find(obj => obj.id == item.id);
+      item.dtContratacao = x.dtContratacao;
+      item.vigenciaLimite = x.vigenciaLimite;
+      this.segservice.updateSeguro(item).subscribe(
+        () => {
+          this.segurosList = this.segurosList.filter(obj => obj.id !== item.id);
+          this.segurosList.push(item);
+        },
+        error => console.log('Error: ', error),
+        () => this.GetAllSeguros()
+      );
+    }
   }
 }

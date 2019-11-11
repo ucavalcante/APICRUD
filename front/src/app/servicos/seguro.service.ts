@@ -29,4 +29,12 @@ export class SeguroService {
     const url = this.apiAdress + 'Get';
     return this.http.get<ISeguro[]>(url);
   }
+  deleteSeguro(item: ISeguro) {
+    const url = this.apiAdress + 'Delete/' + item.id;
+    return this.http.delete(url);
+  }
+  updateSeguro(item: ISeguro) {
+    const url = this.apiAdress + 'Put/' + item.id;
+    return this.http.put(url, item, this.httpOptions);
+  }
 }
