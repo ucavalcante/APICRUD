@@ -21,6 +21,10 @@ export class SeguroService {
   private apiAdress = `${environment.serviceAddress}/api/Seguro/`;
   constructor(private http: HttpClient) { }
 
+  addSeguro(item: ISeguro) {
+    const url = this.apiAdress + 'Post';
+    return this.http.post(url, item, this.httpOptions);
+  }
   getAllSeguros(): Observable<ISeguro[]> {
     const url = this.apiAdress + 'Get';
     return this.http.get<ISeguro[]>(url);

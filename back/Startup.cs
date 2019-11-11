@@ -1,4 +1,3 @@
-
 using back.Data;
 using back.Models;
 using Microsoft.AspNetCore.Builder;
@@ -26,7 +25,8 @@ namespace back
             services.AddDbContext<SeguroDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("SegurosDatabase"))
                 );
-            services.AddControllers();
+            services.AddControllers()
+            .AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,12 +37,12 @@ namespace back
                 app.UseDeveloperExceptionPage();
             }
 
-             app.UseCors(
-               options => options
-                .AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-            );
+            app.UseCors(
+              options => options
+               .AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod()
+           );
 
             app.UseHttpsRedirection();
 
