@@ -1,0 +1,54 @@
+<h1>Seguros</h1>
+<div class="row mb-3">
+
+  <input #tempId type="hidden">
+  <div class="col-md-6 col-sm-6">
+    <label>Nome</label>
+    <input class="form-control" #tempNome type="text">
+  </div>
+
+  <div class="col-md-6 col-sm-6">
+    <label>Abrangencia</label>
+
+    <div class="row">
+      <div class="col-9">
+        <select class="custom-select" #tempAbrangencia>
+          <option label="Selecionar" disabled></option>
+          <option *ngFor="let key of keys" [value]="key" [label]="abrangenciaList[key]"></option>
+        </select>
+      </div>
+      <div class="col-3">
+        <button *ngIf="!modoEdicao" class="btn btn-primary"
+          (click)="addSeguro({nome:tempNome.value,abrangencia:tempAbrangencia.value});tempNome.value='';tempAbrangencia.value=''">Adicionar</button>
+        <button *ngIf="modoEdicao" class="btn btn-primary"
+        (click)="updateSeguro({id:tempId.value,nome:tempNome.value,abrangencia:tempAbrangencia.value})" >Salvar</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="d-flex flex-wrap">
+  <div *ngFor="let item of segurosList" class="card bg-light mb-3 mr-3" style="max-width: 16rem; min-width: 16rem;">
+    <div class="card-header">
+      {{abrangenciaList[item.abrangencia]}}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{item.nome}}</h5>
+      Contratação: {{item.dtContratacao|dateToLocalDateString}}
+      Vigencia: {{item.vigenciaLimite|dateToLocalDateString}}
+
+      <div class="d-flex justify-content-end mt-3">
+        <button class="btn btn-primary ml-2"
+          (click)="modoEdicao=!modoEdicao;
+          modoEdicao?tempNome.value=item.nome:tempNome.value='';
+          modoEdicao?tempAbrangencia.value=item.abrangencia:tempAbrangencia.value='';
+          modoEdicao?tempId.value=item.id:tempId.value='';
+          "
+          style="font-family: 'Segoe MDL2 Assets'" alt='Delete'>&#xE104;</button>
+        <button class="btn btn-primary ml-2" (click)="deleteSeguro(item)" style="font-family: 'Segoe MDL2 Assets'"
+          alt='Delete'>&#xE107;</button>
+      </div>
+    </div>
+  </div>
+</div>
